@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_lamp/presentation/bloc/lamp_bloc.dart';
 
-class LampPage extends StatelessWidget {
+class LampPage extends StatefulWidget {
   const LampPage({super.key});
+
+  @override
+  State<LampPage> createState() => _LampPageState();
+}
+
+class _LampPageState extends State<LampPage> {
+  final box = GetStorage();
+  @override
+  void initState() {
+    super.initState();
+    final savedState = box.read('lamp_state') ?? false;
+
+    context.read<LampBloc>().add(SetLampStateEvent(savedState));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +30,7 @@ class LampPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(isOn ? Icons.sunny : Icons.nightlight),
-            onPressed: () => context.read<LampBloc>().toggle(),
+            onPressed: () => context.read<LampBloc>().add(ToggleLampEvent()),
           )
         ],
       ),

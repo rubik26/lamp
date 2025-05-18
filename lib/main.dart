@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_lamp/data/repositoriesImpl/lamp_repository_impl.dart';
 import 'package:my_lamp/domain/usecases/toggle_lamp.dart';
 import 'package:my_lamp/presentation/bloc/lamp_bloc.dart';
 import 'package:my_lamp/presentation/pages/lamp_page.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 
